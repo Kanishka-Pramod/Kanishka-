@@ -1,0 +1,1099 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechZone Gadget Store - Sri Lanka</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+        }
+        
+        body.dark-mode {
+            --text-color: #e0e0e0;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --border-color: #444;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .cart-icon {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .cart-icon:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        /* NAVIGATION */
+        nav {
+            background-color: var(--card-bg);
+            padding: 12px 0;
+            position: sticky;
+            top: 100px;
+            z-index: 40;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            font-weight: bold;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        nav a:hover {
+            color: var(--secondary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        /* BANNER */
+        .banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .banner h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* SECTIONS */
+        .section {
+            margin: 40px 0;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .special-offer-banner {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* PRODUCTS GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9em;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.75em;
+            color: white;
+            z-index: 10;
+        }
+        
+        .new-badge {
+            background-color: var(--primary-color);
+        }
+        
+        .offer-badge {
+            background-color: var(--danger-color);
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-brand {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .product-description {
+            color: var(--text-color);
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+        
+        .product-price {
+            font-size: 1.3em;
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .product-price del {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+        
+        .availability {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .availability.out-stock {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .add-to-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* SHOPPING CART SIDEBAR */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--card-bg);
+            box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+            transition: right 0.3s;
+            z-index: 1000;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h2 {
+            margin: 0;
+            color: white;
+            border: none;
+        }
+        
+        .close-cart {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .close-cart:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .cart-items {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            background: var(--bg-color);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .cart-item-price {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .remove-btn {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .remove-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        .cart-footer {
+            padding: 20px;
+            border-top: 2px solid var(--border-color);
+        }
+        
+        .cart-total {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--success-color);
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .clear-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--border-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .clear-cart-btn:hover {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+        
+        .empty-cart-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        /* CONTACT SECTION */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .contact-section h2 {
+            color: white;
+            border: none;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .contact-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav a {
+                border: none;
+                border-left: 3px solid transparent;
+            }
+            
+            nav a:hover {
+                border-left-color: var(--primary-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <h1>🛍️ TechZone</h1>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+                <button class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- NAVIGATION -->
+    <nav>
+        <ul>
+            <li><a href="#smartphones">📱 Smartphones</a></li>
+            <li><a href="#laptops">💻 Laptops</a></li>
+            <li><a href="#audio">🎧 Audio & Headphones</a></li>
+            <li><a href="#smartwatches">⌚ Smartwatches</a></li>
+            <li><a href="#gaming">🎮 Gaming</a></li>
+            <li><a href="#contact">📞 Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- BANNER -->
+    <div class="banner">
+        <h2>🎉 Grand Opening Sale - Up to 30% OFF!</h2>
+        <p>Premium Electronics at Unbeatable Prices</p>
+    </div>
+    
+    <div class="container">
+        
+        <!-- SMARTPHONES SECTION -->
+        <section id="smartphones" class="section">
+            <h2>📱 Smartphones</h2>
+            <div class="special-offer-banner">⚡ NEW 5G SMARTPHONES NOW AVAILABLE!</div>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="iphone-15-pro-max .png" alt="iPhone 15 Pro Max">
+                        <div class="badge new-badge">NEW</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Apple</div>
+                        <h3>iPhone 15 Pro Max</h3>
+                        <p class="product-description">6.7" display, A17 Pro, 48MP camera, Titanium design</p>
+                        <div class="product-price">LKR 385,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('iPhone 15 Pro Max', 385000, 'Apple')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="galaxy-s24-ultra.png" alt="Samsung Galaxy S24 Ultra">
+                        <div class="badge offer-badge">-25%</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Samsung</div>
+                        <h3>Galaxy S24 Ultra</h3>
+                        <p class="product-description">6.8" AMOLED, Snapdragon 8, 200MP zoom camera</p>
+                        <div class="product-price">LKR 289,500 <del>LKR 386,000</del></div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Galaxy S24 Ultra', 289500, 'Samsung')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="oneplus-12.png" alt="OnePlus 12">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">OnePlus</div>
+                        <h3>OnePlus 12</h3>
+                        <p class="product-description">6.7" Fluid AMOLED, Snapdragon 8, 100W charging</p>
+                        <div class="product-price">LKR 195,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('OnePlus 12', 195000, 'OnePlus')">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- LAPTOPS SECTION -->
+        <section id="laptops" class="section">
+            <h2>💻 Laptops</h2>
+            <div class="special-offer-banner">💰 STUDENT DISCOUNT: 15% OFF with valid ID!</div>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="macbook-pro-16.png" alt="MacBook Pro 16">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Apple</div>
+                        <h3>MacBook Pro 16" M3 Max</h3>
+                        <p class="product-description">Apple M3 Max, 36GB RAM, 1TB SSD, 16-core GPU</p>
+                        <div class="product-price">LKR 580,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('MacBook Pro 16 M3', 580000, 'Apple')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="dell-xps-15-9560header.jpg" alt="Dell XPS 15">
+                        <div class="badge new-badge">NEW</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Dell</div>
+                        <h3>XPS 15 (2024)</h3>
+                        <p class="product-description">Intel i9, RTX 4070, 32GB RAM, 4K OLED display</p>
+                        <div class="product-price">LKR 425,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Dell XPS 15', 425000, 'Dell')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="hp-pavilion-15.png" alt="HP Pavilion 15">
+                        <div class="badge offer-badge">-20%</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">HP</div>
+                        <h3>Pavilion 15 (Intel)</h3>
+                        <p class="product-description">Intel i7, RTX 4050, 16GB RAM, 144Hz display</p>
+                        <div class="product-price">LKR 156,000 <del>LKR 195,000</del></div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('HP Pavilion 15', 156000, 'HP')">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- AUDIO & HEADPHONES SECTION -->
+        <section id="audio" class="section">
+            <h2>🎧 Audio & Headphones</h2>
+            <div class="special-offer-banner">🎵 MUSIC FEST: Premium Audio Bundle Deals!</div>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="sony-wh1000xm5.jpg" alt="Sony WH-1000XM5">
+                        <div class="badge new-badge">NEW</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Sony</div>
+                        <h3>WH-1000XM5</h3>
+                        <p class="product-description">Industry-leading ANC, 30hr battery, Premium sound</p>
+                        <div class="product-price">LKR 68,500</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Sony WH-1000XM5', 68500, 'Sony')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/audio/bose-qc45.jpg" alt="Bose QC45">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Bose</div>
+                        <h3>QuietComfort 45</h3>
+                        <p class="product-description">Award-winning ANC, 24hr battery, Comfort fit</p>
+                        <div class="product-price">LKR 52,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Bose QC45', 52000, 'Bose')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="airpods-pro-2.png" alt="Apple AirPods Pro 2">
+                        <div class="badge offer-badge">-30%</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Apple</div>
+                        <h3>AirPods Pro (2nd Gen)</h3>
+                        <p class="product-description">ANC, Adaptive Audio, Spatial audio with head tracking</p>
+                        <div class="product-price">LKR 35,000 <del>LKR 50,000</del></div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('AirPods Pro 2', 35000, 'Apple')">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- SMARTWATCHES SECTION -->
+        <section id="smartwatches" class="section">
+            <h2>⌚ Smartwatches & Wearables</h2>
+            <div class="special-offer-banner">🏃 FITNESS WEEK: Health Trackers & Smartwatches!</div>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="apple-watch-series-9.png" alt="Apple Watch Series 9">
+                        <div class="badge new-badge">NEW</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Apple</div>
+                        <h3>Watch Series 9 (45mm)</h3>
+                        <p class="product-description">Retina display, Health sensors, ECG, Fall detection</p>
+                        <div class="product-price">LKR 95,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Apple Watch Series 9', 95000, 'Apple')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="galaxy-watch6.png" alt="Samsung Galaxy Watch6">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Samsung</div>
+                        <h3>Galaxy Watch6 (47mm)</h3>
+                        <p class="product-description">AMOLED display, Sleep tracking, Health sensors</p>
+                        <div class="product-price">LKR 62,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Galaxy Watch6', 62000, 'Samsung')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="garmin-epix.jpeg" alt="Garmin Epix Gen 2">
+                        <div class="badge offer-badge">-25%</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Garmin</div>
+                        <h3>Epix Gen 2</h3>
+                        <p class="product-description">Rugged design, 11-day battery, Multi-GNSS GPS</p>
+                        <div class="product-price">LKR 105,000 <del>LKR 140,000</del></div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Garmin Epix Gen 2', 105000, 'Garmin')">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- GAMING ACCESSORIES SECTION -->
+        <section id="gaming" class="section">
+            <h2>🎮 Gaming Accessories</h2>
+            <div class="special-offer-banner">🏆 GAMING CHAMPIONSHIP: Pro Gaming Gear Bundles!</div>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="corsair-k95.jpg" alt="Corsair K95 Keyboard">
+                        <div class="badge new-badge">NEW</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Corsair</div>
+                        <h3>K95 Platinum XT</h3>
+                        <p class="product-description">Mechanical switches, Per-key RGB, Macro keys</p>
+                        <div class="product-price">LKR 45,000</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Corsair K95 Keyboard', 45000, 'Corsair')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="logitech-g502.png" alt="Logitech G502 Mouse">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Logitech</div>
+                        <h3>G502 HERO</h3>
+                        <p class="product-description">25,600 DPI sensor, 11 buttons, Customizable</p>
+                        <div class="product-price">LKR 12,500</div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Logitech G502', 12500, 'Logitech')">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="asus-rog-delta.jpg" alt="ASUS ROG Delta S Headset">
+                        <div class="badge offer-badge">-15%</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">ASUS ROG</div>
+                        <h3>Delta S Headset</h3>
+                        <p class="product-description">7.1 surround, Quad DAC, Noise-canceling mic</p>
+                        <div class="product-price">LKR 21,250 <del>LKR 25,000</del></div>
+                        <span class="availability">✓ In Stock</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('ASUS ROG Delta S', 21250, 'ASUS')">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+    </div>
+    
+    <!-- CONTACT SECTION -->
+    <div class="container">
+        <section id="contact" class="contact-section">
+            <h2>📞 Get in Touch with Us</h2>
+            <p style="margin-bottom: 20px;">Have questions? We're here to help! Contact TechZone today.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📱 Phone</h3>
+                    <p>Main: +94 11 234 5678</p>
+                    <p>Mobile: +94 77 123 4567</p>
+                    <p>Support: +94 76 987 6543</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p>info@techzone.lk</p>
+                    <p>support@techzone.lk</p>
+                    <p>sales@techzone.lk</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>🏪 Location</h3>
+                    <p>No. 45, Galle Road</p>
+                    <p>Colombo 3, Sri Lanka</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>⏰ Hours</h3>
+                    <p>Mon-Sat: 9AM-8PM</p>
+                    <p>Sun: 10AM-6PM</p>
+                    <p>24/7 Online Support</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 TechZone Gadget Store. All Rights Reserved.</p>
+        <p>Your Trusted Electronics Retailer in Sri Lanka | Authentic Products | Excellent Service</p>
+        <p>📍 Colombo 3 | 📞 +94 77 123 4567 | 📧 info@techzone.lk</p>
+    </footer>
+    
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">Total: <span id="cartTotal">LKR 0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+        </div>
+    </div>
+    
+    <!-- JAVASCRIPT -->
+    <script>
+        let cart = [];
+        
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+        }
+        
+        // Load dark mode preference
+        window.addEventListener('load', () => {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle').textContent = '☀️ Light Mode';
+            }
+        });
+        
+        // Add to Cart
+        function addToCart(productName, price, brand) {
+            cart.push({
+                id: Date.now(),
+                name: productName,
+                brand: brand,
+                price: price
+            });
+            updateCart();
+            showNotification(`${productName} added to cart!`);
+        }
+        
+        // Update Cart Display
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            const cartCountSpan = document.getElementById('cart-count');
+            const cartTotalSpan = document.getElementById('cartTotal');
+            
+            cartCountSpan.textContent = cart.length;
+            
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                cartTotalSpan.textContent = 'LKR 0';
+                return;
+            }
+            
+            cartItemsDiv.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price;
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div style="font-size: 0.85em; opacity: 0.7;">${item.brand}</div>
+                        <div class="cart-item-price">LKR ${item.price.toLocaleString()}</div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">✕</button>
+                `;
+                cartItemsDiv.appendChild(cartItem);
+            });
+            
+            cartTotalSpan.textContent = 'LKR ' + total.toLocaleString();
+        }
+        
+        // Remove from Cart
+        function removeFromCart(index) {
+            const item = cart[index];
+            cart.splice(index, 1);
+            updateCart();
+            showNotification(`${item.name} removed from cart!`);
+        }
+        
+        // Clear Cart
+        function clearCart() {
+            if (cart.length > 0) {
+                if (confirm('Are you sure you want to clear your cart?')) {
+                    cart = [];
+                    updateCart();
+                    showNotification('Cart cleared!');
+                }
+            }
+        }
+        
+        // Toggle Cart Sidebar
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+        
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            alert(`Thank you for your order!\n\nTotal: LKR ${total.toLocaleString()}\n\nA confirmation email will be sent to you shortly.`);
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+        
+        // Show Notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 120px;
+                right: 20px;
+                background: #27ae60;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 999;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    
+</body>
+</html>
